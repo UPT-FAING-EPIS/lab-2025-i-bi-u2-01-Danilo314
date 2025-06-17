@@ -6,6 +6,7 @@ CREATE TABLE HECHO_RESERVA (
   id_agencia INT
 );
 
+
 CREATE TABLE DIM_CLIENTE (
   id_cliente INT PRIMARY KEY,
   cliente VARCHAR(100),

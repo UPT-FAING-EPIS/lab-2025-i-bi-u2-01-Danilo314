@@ -19,7 +19,7 @@ jobs:
         uses: liquibase-github-actions/update@v4.32.0
         with:
           changelogFile: modelo01.sql
-          url: jdbc:sqlserver://lab2025sqlsrv.database.windows.net:1433;database=envio_dw
+          url: jdbc:sqlserver://lab20251sqlsrv.database.windows.net:1433;database=envio_dw
           username: ${{ secrets.SQL_USER }}
           password: ${{ secrets.SQL_PASS }}
           driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -28,7 +28,7 @@ jobs:
         uses: liquibase-github-actions/update@v4.32.0
         with:
           changelogFile: modelo02.sql
-          url: jdbc:sqlserver://lab2025sqlsrv.database.windows.net:1433;database=reserva_dw
+          url: jdbc:sqlserver://lab20251sqlsrv.database.windows.net:1433;database=reserva_dw
           username: ${{ secrets.SQL_USER }}
           password: ${{ secrets.SQL_PASS }}
           driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -37,7 +37,7 @@ jobs:
         uses: liquibase-github-actions/update@v4.32.0
         with:
           changelogFile: modelo03.sql
-          url: jdbc:sqlserver://lab2025sqlsrv.database.windows.net:1433;database=gestion_proyectos_dw
+          url: jdbc:sqlserver://lab20251sqlsrv.database.windows.net:1433;database=gestion_proyectos_dw
           username: ${{ secrets.SQL_USER }}
           password: ${{ secrets.SQL_PASS }}
           driver: com.microsoft.sqlserver.jdbc.SQLServerDriver

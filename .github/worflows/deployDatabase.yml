@@ -1,0 +1,43 @@
+name: Deploy Modelos SQL con Liquibase
+
+on:
+  push:
+    paths:
+      - 'modelo*.sql'
+    branches:
+      - main
+
+jobs:
+  deploy-modelos:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v3
+
+      - name: Ejecutar modelo01.sql → envio_dw
+        uses: liquibase-github-actions/update@v4.32.0
+        with:
+          changelogFile: modelo01.sql
+          url: jdbc:sqlserver://lab2025sqlsrv.database.windows.net:1433;database=envio_dw
+          username: ${{ secrets.SQL_USER }}
+          password: ${{ secrets.SQL_PASS }}
+          driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+      - name: Ejecutar modelo02.sql → reserva_dw
+        uses: liquibase-github-actions/update@v4.32.0
+        with:
+          changelogFile: modelo02.sql
+          url: jdbc:sqlserver://lab2025sqlsrv.database.windows.net:1433;database=reserva_dw
+          username: ${{ secrets.SQL_USER }}
+          password: ${{ secrets.SQL_PASS }}
+          driver: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+      - name: Ejecutar modelo03.sql → gestion_proyectos_dw
+        uses: liquibase-github-actions/update@v4.32.0
+        with:
+          changelogFile: modelo03.sql
+          url: jdbc:sqlserver://lab2025sqlsrv.database.windows.net:1433;database=gestion_proyectos_dw
+          username: ${{ secrets.SQL_USER }}
+          password: ${{ secrets.SQL_PASS }}
+          driver: com.microsoft.sqlserver.jdbc.SQLServerDriver

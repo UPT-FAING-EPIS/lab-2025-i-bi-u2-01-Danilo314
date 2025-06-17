@@ -1,48 +1,49 @@
-CREATE TABLE HECHO_RESERVA (
-  id_reserva INT PRIMARY KEY,
-  fecha DATE,
-  id_cliente INT,
-  id_viaje INT,
-  id_agencia INT
-);
-
-
-CREATE TABLE DIM_CLIENTE (
-  id_cliente INT PRIMARY KEY,
-  cliente VARCHAR(100),
-  direccion VARCHAR(200),
-  id_tipo INT
-);
-
-CREATE TABLE DIM_TIPO (
-  id_tipo INT PRIMARY KEY,
-  tipo VARCHAR(50)
-);
-
-CREATE TABLE DIM_VIAJE (
-  id_viaje INT PRIMARY KEY,
-  descripcion TEXT,
-  id_destino INT
-);
-
-CREATE TABLE DIM_DESTINO (
-  id_destino INT PRIMARY KEY,
-  destino VARCHAR(100),
-  id_pais INT
-);
-
 CREATE TABLE DIM_PAIS (
   id_pais INT PRIMARY KEY,
   pais VARCHAR(100)
 );
 
-CREATE TABLE DIM_AGENCIA (
-  id_agencia INT PRIMARY KEY,
-  agencia VARCHAR(100),
-  id_operador INT
+CREATE TABLE DIM_DESTINO (
+  id_destino INT PRIMARY KEY,
+  destino VARCHAR(100)
 );
 
-CREATE TABLE DIM_OPERADOR (
-  id_operador INT PRIMARY KEY,
-  operador VARCHAR(100)
+CREATE TABLE DIM_GRUPO_CC (
+  id_grupo_cc INT PRIMARY KEY,
+  grupo_de_centro_costos VARCHAR(100)
+);
+
+CREATE TABLE DIM_CENTRO_COSTO (
+  id_centro_costo INT PRIMARY KEY,
+  centro_costo VARCHAR(100),
+  id_grupo_cc INT,
+  FOREIGN KEY (id_grupo_cc) REFERENCES DIM_GRUPO_CC(id_grupo_cc)
+);
+
+CREATE TABLE DIM_MODO_TRANSPORTE (
+  id_modo_transporte INT PRIMARY KEY,
+  modo_transporte VARCHAR(100)
+);
+
+CREATE TABLE DIM_LOTE (
+  id_lote INT PRIMARY KEY,
+  peso DECIMAL(10,2),
+  tarifa_importacion DECIMAL(10,2),
+  tarifa_exportacion DECIMAL(10,2),
+  id_pais INT,
+  FOREIGN KEY (id_pais) REFERENCES DIM_PAIS(id_pais)
+);
+
+CREATE TABLE HECHO_ENVIO (
+  id_envio INT PRIMARY KEY,
+  fecha_envio DATE,
+  costo_envio DECIMAL(10,2),
+  id_lote INT,
+  id_destino INT,
+  id_centro_costo INT,
+  id_modo_transporte INT,
+  FOREIGN KEY (id_lote) REFERENCES DIM_LOTE(id_lote),
+  FOREIGN KEY (id_destino) REFERENCES DIM_DESTINO(id_destino),
+  FOREIGN KEY (id_centro_costo) REFERENCES DIM_CENTRO_COSTO(id_centro_costo),
+  FOREIGN KEY (id_modo_transporte) REFERENCES DIM_MODO_TRANSPORTE(id_modo_transporte)
 );
